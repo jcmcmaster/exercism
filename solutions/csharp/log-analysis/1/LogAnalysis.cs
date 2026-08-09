@@ -1,14 +1,14 @@
 public static class LogAnalysis
 {
-  public static string SubstringAfter(this string s, string startDelim) =>
-    s[(s.IndexOf(startDelim) + startDelim.Length)..];
+  public static string SubstringAfter(this string source, string delimiter) =>
+    source[(source.IndexOf(delimiter) + delimiter.Length)..^0];
 
-  public static string SubstringBetween(this string s, string startDelim, string endDelim) =>
-    s[(s.IndexOf(startDelim) + startDelim.Length)..(s.IndexOf(endDelim))];
+  public static string SubstringBetween(this string source, string start, string end) =>
+    source[(source.IndexOf(start) + start.Length)..source.IndexOf(end)];
 
-  public static string Message(this string s) =>
-    s[(s.IndexOf(':') + 1)..].Trim();
+  public static string Message(this string source) =>
+    source.SubstringAfter(": ");
 
-  public static string LogLevel(this string s) =>
-    s[1..s.IndexOf(']')];
+  public static string LogLevel(this string source) =>
+    source.SubstringBetween("[", "]");
 }
